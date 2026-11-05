@@ -129,7 +129,9 @@ def test_order_list_contains_only_own_orders(
         f"{base_url}/api/orders", headers=user_a["headers"], timeout=5
     )
 
-    ids = [order["id"] for order in response.json()]
+    ids = []
+    for order in response.json():
+        ids.append(order["id"])
     assert ids == [order_a["id"]]
 
 
@@ -200,7 +202,10 @@ def test_error_responses_have_no_internal_details(base_url):
         requests.delete(f"{base_url}/api/products", timeout=5),
     ]
 
-    assert [r.status_code for r in responses] == [400, 404, 405]
+    statuses = []
+    for response in responses:
+        statuses.append(response.status_code)
+    assert statuses == [400, 404, 405]
     for response in responses:
         assert response.headers["Content-Type"].startswith("application/json")
         for word in ["Traceback", 'File "', "werkzeug", "/srv/", "line "]:
