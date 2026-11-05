@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}TestShop{% endblock %} — навчальний інтернет-магазин</title>
+  <style>
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f4f5f7; color: #222; }
+    header { background: #1f6f43; color: #fff; padding: 12px 32px; display: flex; align-items: center; gap: 24px; }
+    header a { color: #fff; text-decoration: none; }
+    .logo { font-size: 24px; font-weight: bold; }
+    form.search { flex: 1; display: flex; gap: 8px; }
+    form.search input { flex: 1; padding: 9px 12px; font-size: 15px; border: none; border-radius: 6px; }
+    button { padding: 9px 18px; font-size: 15px; border: none; border-radius: 6px; background: #f2b705; cursor: pointer; }
+    button:disabled { background: #c9c9c9; color: #666; cursor: not-allowed; }
+    .cart-link { font-size: 16px; white-space: nowrap; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 24px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    .card a { color: #1a4fa0; text-decoration: none; font-size: 15px; }
+    .price { font-size: 20px; font-weight: bold; margin-top: 10px; }
+    .message { background: #e3f4e8; border: 1px solid #8fcca3; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; }
+    .warning { background: #fff4e0; border: 1px solid #f0c27a; padding: 10px 14px; border-radius: 6px; }
+    .product { background: #fff; border-radius: 8px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+    .in-stock { color: #1f6f43; } .no-stock { color: #b3261e; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    .total { font-size: 20px; font-weight: bold; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="/">TestShop</a>
+    <form class="search" role="search" action="/search" method="get">
+      <input type="search" name="q" placeholder="Введіть назву товару" aria-label="Пошук товарів" value="{{ query|default('') }}">
+      <button type="submit">Знайти</button>
+    </form>
+    <a class="cart-link" href="/cart">Кошик (<span data-testid="cart-count">{{ cart_count }}</span>)</a>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

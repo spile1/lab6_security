@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Головна{% endblock %}
+{% block content %}
+<h1>Навчальний інтернет-магазин TestShop</h1>
+<div class="grid">
+  {% for product in products %}
+  <div class="card" data-testid="product-card">
+    <a href="/product/{{ product.id }}">{{ product.name }}</a>
+    <div class="price">{{ product.price|uah }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

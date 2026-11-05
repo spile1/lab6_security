@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Пошук{% endblock %}
+{% block content %}
+<h1>Результати пошуку</h1>
+{% if empty_query %}
+  <p class="warning" role="status">Введіть назву товару для пошуку</p>
+{% elif products|length == 0 %}
+  <p class="warning" role="status">За запитом «{{ query }}» нічого не знайдено</p>
+{% else %}
+  <p role="status">Знайдено товарів: {{ products|length }}</p>
+  <div class="grid">
+    {% for product in products %}
+    <div class="card" data-testid="product-card">
+      <a href="/product/{{ product.id }}">{{ product.name }}</a>
+      <div class="price">{{ product.price|uah }}</div>
+    </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

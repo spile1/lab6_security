@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Кошик{% endblock %}
+{% block content %}
+<h1>Кошик</h1>
+{% if rows|length == 0 %}
+  <p class="warning" role="status">Кошик порожній</p>
+{% else %}
+  <table data-testid="cart-table">
+    <tr><th>Товар</th><th>Ціна</th><th>Кількість</th><th>Сума</th></tr>
+    {% for row in rows %}
+    <tr data-testid="cart-row">
+      <td data-testid="cart-item-name">{{ row.product.name }}</td>
+      <td data-testid="cart-item-price">{{ row.product.price|uah }}</td>
+      <td data-testid="cart-item-quantity">{{ row.quantity }}</td>
+      <td>{{ row.line_total|uah }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p class="total" data-testid="cart-total">Разом: {{ total|uah }}</p>
+{% endif %}
+{% endblock %}

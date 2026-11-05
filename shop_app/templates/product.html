@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+{% if message %}<div class="message" role="status">{{ message }}</div>{% endif %}
+<div class="product">
+  <h1 data-testid="product-title">{{ product.name }}</h1>
+  <p>{{ product.description }}</p>
+  <div class="price" data-testid="product-price">{{ product.price|uah }}</div>
+  {% if product.stock > 0 %}
+    <p class="in-stock" data-testid="stock-status">Є в наявності</p>
+  {% else %}
+    <p class="no-stock" data-testid="stock-status">Немає в наявності</p>
+  {% endif %}
+  <form method="post" action="/cart/add/{{ product.id }}">
+    <button type="submit" {% if product.stock == 0 %}disabled{% endif %}>Додати до кошика</button>
+  </form>
+</div>
+{% endblock %}
